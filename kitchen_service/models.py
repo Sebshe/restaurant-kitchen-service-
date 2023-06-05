@@ -9,7 +9,7 @@ class DishType(models.Model):
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='types_of_dish', blank=True, null=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     # template for get_absolute_url
@@ -27,7 +27,7 @@ class Cook(AbstractUser):
     bio = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='avatar', blank=True, null=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.first_name} {self.last_name} ({self.username})"
 
     # template for get_absolute_url
@@ -46,7 +46,7 @@ class Dish(models.Model):
     cooks = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='dishes')
     image = models.ImageField(upload_to='dish', blank=True, null=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     # template for get_absolute_url
