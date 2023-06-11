@@ -1,10 +1,21 @@
 from typing import Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView, ListView
+from django.urls import reverse_lazy
+from django.views.generic import (
+    TemplateView,
+    ListView,
+    CreateView)
 
-from kitchen_service.forms import DishTypeSearchForm
-from kitchen_service.models import DishType, Dish, Cook
+from kitchen_service.forms import (
+    DishTypeSearchForm,
+    DishTypeForm
+)
+from kitchen_service.models import (
+    DishType,
+    Dish,
+    Cook
+)
 
 
 class MainView(TemplateView):
@@ -38,3 +49,10 @@ class DishTypeListView(LoginRequiredMixin, ListView):
         if name:
             queryset = queryset.filter(name__icontains=name)
         return queryset
+
+
+class DishTypeCreateView(LoginRequiredMixin, CreateView):
+    model = DishType
+    template_name = 'kitchen_service/dish_type_form.html'
+    form_class = DishTypeForm
+    success_url = reverse_lazy('kitchen_service:types-of-dish')
