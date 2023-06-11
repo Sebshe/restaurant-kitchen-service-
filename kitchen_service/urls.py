@@ -3,7 +3,8 @@ from django.urls import path
 from .views import (
     MainView,
     DishTypeListView,
-    DishTypeCreateView
+    DishTypeCreateView,
+    DishTypeDetailView,
 )
 
 urlpatterns = [
@@ -17,6 +18,11 @@ urlpatterns = [
         'types_of_dish/create/',
         DishTypeCreateView.as_view(),
         name='types-of-dish-create'
+    ),
+    path(
+        'types_of_dish/<int:pk>/',
+        DishTypeDetailView.as_view(),
+        name="type-of-dish-detail"
     ),
 ]
 

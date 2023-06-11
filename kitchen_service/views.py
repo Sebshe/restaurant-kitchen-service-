@@ -5,7 +5,9 @@ from django.urls import reverse_lazy
 from django.views.generic import (
     TemplateView,
     ListView,
-    CreateView)
+    CreateView,
+    DetailView
+)
 
 from kitchen_service.forms import (
     DishTypeSearchForm,
@@ -56,3 +58,9 @@ class DishTypeCreateView(LoginRequiredMixin, CreateView):
     template_name = 'kitchen_service/dish_type_form.html'
     form_class = DishTypeForm
     success_url = reverse_lazy('kitchen_service:types-of-dish')
+
+
+class DishTypeDetailView(LoginRequiredMixin, DetailView):
+    model = DishType
+    template_name = 'kitchen_service/dish_type_detail.html'
+
