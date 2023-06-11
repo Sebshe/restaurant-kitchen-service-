@@ -5,6 +5,7 @@ from .views import (
     DishTypeListView,
     DishTypeCreateView,
     DishTypeDetailView,
+    DishTypeUpdateView,
 )
 
 urlpatterns = [
@@ -23,6 +24,11 @@ urlpatterns = [
         'types_of_dish/<int:pk>/',
         DishTypeDetailView.as_view(),
         name="type-of-dish-detail"
+    ),
+    path(
+        'types_of_dish/<int:pk>/update/',
+        DishTypeUpdateView.as_view(),
+        name='type-of-dish-update'
     ),
 ]
 

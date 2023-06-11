@@ -1,12 +1,14 @@
 from typing import Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import (
     TemplateView,
     ListView,
     CreateView,
-    DetailView
+    DetailView,
+    UpdateView,
 )
 
 from kitchen_service.forms import (
@@ -35,7 +37,12 @@ class DishTypeListView(LoginRequiredMixin, ListView):
     model = DishType
     template_name = 'kitchen_service/dish_type_list.html'
 
-    def get_context_data(self, *, object_list: Optional[list] = None, **kwargs):
+    def get_context_data(
+            self,
+            *,
+            object_list: Optional[list] = None,
+            **kwargs
+    ):
         context = super(DishTypeListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
         context['search_form'] = DishTypeSearchForm(
@@ -64,3 +71,14 @@ class DishTypeDetailView(LoginRequiredMixin, DetailView):
     model = DishType
     template_name = 'kitchen_service/dish_type_detail.html'
 
+
+class DishTypeUpdateView(LoginRequiredMixin, UpdateView):
+    model = DishType
+    template_name = 'kitchen_service/dish_type_form.html'
+    form_class = DishTypeForm
+
+    def form_valid(self, form: DishTypeForm) -> HttpResponseRedirect:
+        instance = form.save(commit=False)
+        instance.save()
+        form.save()
+        return HttpResponseRedirect(instance.get_absolute_url())
