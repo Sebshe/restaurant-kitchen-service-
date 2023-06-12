@@ -9,6 +9,7 @@ from django.views.generic import (
     CreateView,
     DetailView,
     UpdateView,
+    DeleteView,
 )
 
 from kitchen_service.forms import (
@@ -82,3 +83,9 @@ class DishTypeUpdateView(LoginRequiredMixin, UpdateView):
         instance.save()
         form.save()
         return HttpResponseRedirect(instance.get_absolute_url())
+
+
+class DishTypeDeleteView(LoginRequiredMixin, DeleteView):
+    model = DishType
+    template_name = 'kitchen_service/dish_type_confirm_delete.html'
+    success_url = reverse_lazy('kitchen_service:types-of-dish')
