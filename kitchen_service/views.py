@@ -15,7 +15,8 @@ from django.views.generic import (
 
 from kitchen_service.forms import (
     DishTypeSearchForm,
-    DishTypeForm
+    DishTypeForm,
+    CookSearchForm
 )
 from kitchen_service.models import (
     DishType,

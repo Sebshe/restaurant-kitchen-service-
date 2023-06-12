@@ -2,8 +2,9 @@ import os
 
 from django import forms
 from django.conf import settings
+from django.db.models import Q
 
-from kitchen_service.models import DishType
+from kitchen_service.models import DishType, Cook
 
 
 class DishTypeSearchForm(forms.Form):
@@ -78,3 +79,27 @@ class DishTypeForm(forms.ModelForm):
             dish_type.save()
 
         return dish_type
+
+
+class CookSearchForm(forms.Form):
+    search = forms.CharField(
+        required=False,
+        label='',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control mr-sm-2',
+                'type': 'search',
+                'placeholder': 'Search by first name, last name or username',
+                'aria-label': 'Search'
+            }
+        )
+    )
+
+    def search_cooks(self):
+        query = self.cleaned_data.get('search')
+        cooks = Cook.objects.filter(
+            Q(first_name__icontains=query) |
+            Q(last_name__icontains=query) |
+            Q(username__icontains=query)
+        )
+        return cooks
