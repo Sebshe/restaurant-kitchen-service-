@@ -1,6 +1,7 @@
-from typing import Optional
+from typing import Optional, Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -89,3 +90,34 @@ class DishTypeDeleteView(LoginRequiredMixin, DeleteView):
     model = DishType
     template_name = 'kitchen_service/dish_type_confirm_delete.html'
     success_url = reverse_lazy('kitchen_service:types-of-dish')
+
+
+class CookListView(LoginRequiredMixin, ListView):
+    model = Cook
+    template_name = 'kitchen_service/cook_list.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('search')
+        if query:
+            queryset = Cook.objects.filter(
+                Q(first_name__icontains=query)
+                | Q(last_name__icontains=query)
+                | Q(username__icontains=query)
+            )
+        else:
+            queryset = Cook.objects.all()
+        return queryset
+
+    def get_context_data(
+            self,
+            *,
+            object_list: Optional[list] = None,
+            **kwargs
+    ) -> dict[str, Any]:
+        context = super(CookListView, self).get_context_data(**kwargs)
+        search_form = CookSearchForm(self.request.GET or None)
+        if search_form.is_valid():
+            cooks = search_form.search_cooks()
+            context['cooks'] = cooks
+        context['search_form'] = search_form
+        return context
