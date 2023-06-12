@@ -122,3 +122,8 @@ class CookListView(LoginRequiredMixin, ListView):
             context['cooks'] = cooks
         context['search_form'] = search_form
         return context
+
+
+class CookDetailView(LoginRequiredMixin, DetailView):
+    model = Cook
+    template_name = 'kitchen_service/cook_detail.html'
