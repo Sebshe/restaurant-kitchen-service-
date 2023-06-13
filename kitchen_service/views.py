@@ -180,3 +180,15 @@ class DishCreateView(LoginRequiredMixin, CreateView):
     template_name = 'kitchen_service/dish_form.html'
     form_class = DishForm
     success_url = reverse_lazy('kitchen_service:dishes')
+
+
+class DishUpdateView(LoginRequiredMixin, UpdateView):
+    model = Dish
+    template_name = 'kitchen_service/dish_form.html'
+    form_class = DishForm
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.save()
+        form.save()
+        return HttpResponseRedirect(instance.get_absolute_url())
