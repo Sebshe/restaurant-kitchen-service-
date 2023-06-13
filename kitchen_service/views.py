@@ -18,7 +18,8 @@ from kitchen_service.forms import (
     DishTypeForm,
     CookSearchForm,
     CookUpdateForm,
-    DishSearchForm
+    DishSearchForm,
+    DishForm
 )
 from kitchen_service.models import (
     DishType,

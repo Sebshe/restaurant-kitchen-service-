@@ -2,9 +2,10 @@ import os
 
 from django import forms
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.db.models import Q
 
-from kitchen_service.models import DishType, Cook
+from kitchen_service.models import DishType, Cook, Dish
 
 
 class DishTypeSearchForm(forms.Form):
@@ -172,3 +173,85 @@ class DishSearchForm(forms.Form):
             }
         )
     )
+
+
+class DishForm(forms.ModelForm):
+    name = forms.CharField(
+        label='Title',
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Enter name here...'
+            }
+        )
+    )
+
+    image = forms.ImageField(
+        required=False,
+        widget=forms.FileInput(
+            attrs={
+                'class': 'custom-file-input',
+                'accept': 'image/*'
+            }
+        )
+    )
+
+    cooks = forms.ModelMultipleChoiceField(
+        queryset=get_user_model().objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+
+    price = forms.DecimalField(
+        required=True,
+        max_digits=10,
+        decimal_places=2
+    )
+
+    dish_type = forms.ModelChoiceField(
+        queryset=DishType.objects.all(),
+        required=True,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select'
+            }
+        )
+    )
+
+    class Meta:
+        model = Dish
+        fields = [
+            'image',
+            'name',
+            'price',
+            'description',
+            'dish_type',
+            'cooks'
+        ]
+
+    def save(self, commit=True):
+        dish = super(
+            DishForm, self
+        ).save(commit=False)
+        cooks = self.cleaned_data.get('cooks', None)
+
+        if self.cleaned_data["image"]:
+            image = self.cleaned_data["image"]
+            file_ext = os.path.splitext(image.name)[1]
+
+            new_image_name = f"{dish.name}{file_ext}"
+            file_path = os.path.join(settings.MEDIA_ROOT, "dish", new_image_name)
+
+            with open(file_path, 'wb') as new_image_file:
+                for chunk in image.chunks():
+                    new_image_file.write(chunk)
+
+            dish.image = os.path.join("dish", new_image_name)
+
+            if cooks is not None:
+                dish.cooks.set(cooks)
+
+            if commit:
+                dish.save()
+
+        return dish
