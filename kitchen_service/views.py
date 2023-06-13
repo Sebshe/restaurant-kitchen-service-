@@ -197,3 +197,9 @@ class DishUpdateView(LoginRequiredMixin, UpdateView):
 class DishDetailView(LoginRequiredMixin, DetailView):
     model = Dish
     template_name = 'kitchen_service/dish_detail.html'
+
+
+class DishDeleteView(LoginRequiredMixin, DeleteView):
+    model = Dish
+    template_name = 'kitchen_service/dish_confirm_delete.html'
+    success_url = reverse_lazy('cafe_kitchen:dishes')
