@@ -140,3 +140,34 @@ class CookUpdateView(LoginRequiredMixin, UpdateView):
         instance.save()
         form.save()
         return HttpResponseRedirect(instance.get_absolute_url())
+
+
+class DishListView(LoginRequiredMixin, ListView):
+    model = Dish
+    template_name = 'kitchen_service/dish_list.html'
+
+    def get_context_data(
+            self,
+            *,
+            object_list: Optional[list] = None,
+            **kwargs
+    ):
+        context = super(
+            DishListView, self
+        ).get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+        context['search_form'] = DishSearchForm(
+            initial={
+                "name": name
+            }
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        name = self.request.GET.get("name")
+        if name:
+            queryset = queryset.filter(
+                name__icontains=name
+            )
+        return queryset
