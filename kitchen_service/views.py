@@ -127,3 +127,15 @@ class CookListView(LoginRequiredMixin, ListView):
 class CookDetailView(LoginRequiredMixin, DetailView):
     model = Cook
     template_name = 'kitchen_service/cook_detail.html'
+
+
+class CookUpdateView(LoginRequiredMixin, UpdateView):
+    model = Cook
+    template_name = 'kitchen_service/cook_update_form.html'
+    form_class = CookUpdateForm
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.save()
+        form.save()
+        return HttpResponseRedirect(instance.get_absolute_url())
