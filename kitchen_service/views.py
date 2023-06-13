@@ -172,3 +172,10 @@ class DishListView(LoginRequiredMixin, ListView):
                 name__icontains=name
             )
         return queryset
+
+
+class DishCreateView(LoginRequiredMixin, CreateView):
+    model = Dish
+    template_name = 'kitchen_service/dish_form.html'
+    form_class = DishForm
+    success_url = reverse_lazy('kitchen_service:dishes')
