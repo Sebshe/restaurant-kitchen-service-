@@ -192,3 +192,8 @@ class DishUpdateView(LoginRequiredMixin, UpdateView):
         instance.save()
         form.save()
         return HttpResponseRedirect(instance.get_absolute_url())
+
+
+class DishDetailView(LoginRequiredMixin, DetailView):
+    model = Dish
+    template_name = 'kitchen_service/dish_detail.html'
