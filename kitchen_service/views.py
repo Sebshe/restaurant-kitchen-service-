@@ -19,7 +19,7 @@ from kitchen_service.forms import (
     CookSearchForm,
     CookUpdateForm,
     DishSearchForm,
-    DishForm
+    DishForm, RegistrationForm
 )
 from kitchen_service.models import (
     DishType,
@@ -130,6 +130,20 @@ class CookListView(LoginRequiredMixin, ListView):
 class CookDetailView(LoginRequiredMixin, DetailView):
     model = Cook
     template_name = 'kitchen_service/cook_detail.html'
+
+
+class RegisterView(CreateView):
+    form_class = RegistrationForm
+    template_name = 'registration/sign-up.html'
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        print("Account created successfully!")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print("Registration failed!")
+        return super().form_invalid(form)
 
 
 class CookUpdateView(LoginRequiredMixin, UpdateView):
