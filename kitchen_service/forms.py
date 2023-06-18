@@ -3,6 +3,7 @@ import os
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
 
 from kitchen_service.models import DishType, Cook, Dish
@@ -255,3 +256,35 @@ class DishForm(forms.ModelForm):
                 dish.save()
 
         return dish
+
+
+class RegistrationForm(UserCreationForm):
+    password1 = forms.CharField(
+        label=_("Password"),
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control form-control-lg',
+            'placeholder': 'Password'
+        }),
+    )
+    password2 = forms.CharField(
+        label=_("Password Confirmation"),
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control form-control-lg',
+            'placeholder': 'Password Confirmation'
+        }),
+    )
+
+    class Meta:
+        model = Cook
+        fields = ('username', 'email', )
+
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'class': 'form-control form-control-lg',
+                'placeholder': 'Username'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control form-control-lg',
+                'placeholder': 'Email'
+            })
+        }
