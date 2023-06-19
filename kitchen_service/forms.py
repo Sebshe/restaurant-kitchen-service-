@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
+from django.utils.translation import gettext_lazy as _
 
 from kitchen_service.models import DishType, Cook, Dish
 

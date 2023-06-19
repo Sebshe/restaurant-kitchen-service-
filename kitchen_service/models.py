@@ -36,9 +36,8 @@ class Cook(AbstractUser):
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name} ({self.username})"
 
-    # template for get_absolute_url
-    # def get_absolute_url(self):
-    #    return reverse('kitchen_service:cook-detail', args=[str(self.id)])
+    def get_absolute_url(self):
+        return reverse('kitchen_service:cook-detail', args=[str(self.id)])
 
     class Meta:
         ordering = ['username']
