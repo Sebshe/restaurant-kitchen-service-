@@ -4,11 +4,13 @@
   <div class="row">
     <div class="col-12">
       <nav
-        class="navbar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+        class="navbar navbar-expand-lg opacity-9 blur blur-rounded
+         top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
         <div class="container-fluid px-0">
-          <a class="navbar-brand font-weight-bolder ms-sm-3"
-            href="#" rel="tooltip"
+          <a class="navbar-brand font-weight-bolder font-italic"
+            href="{% url 'kitchen_service:index' %}" rel="tooltip"
             title="Piter's restaurant" data-placement="bottom">
+            <img src="/static/img/label_img.png" class="img-fluid mx-1" alt="label_img">
             Piter's restaurant
           </a>
           <button class="navbar-toggler shadow-none ms-2" type="button" data-toggle="collapse"
@@ -26,28 +28,28 @@
               {% if request.user.is_authenticated %}
               <li class="nav-item dropdown dropdown-hover mx-2">
                 <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                  href="#">
+                  href="{% url 'kitchen_service:cooks' %}">
                   Cooks
                 </a>
               </li>
 
               <li class="nav-item dropdown dropdown-hover mx-2">
                 <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                  href="#">
+                  href="{% url 'kitchen_service:dishes' %}">
                   Dishes
                 </a>
               </li>
 
               <li class="nav-item dropdown dropdown-hover mx-2">
                 <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                  href="#">
+                  href="{% url 'kitchen_service:types-of-dish' %}">
                   Types of dishes
                 </a>
               </li>
 
               <li class="nav-item ms-lg-auto">
-                <a class="nav-link nav-link-icon me-2" href="#">
-                  <i class="fa fa-sign-out me-1"></i>
+                <a class="btn btn-sm bg-gradient-info w-auto me-1 my-1" href="{{ user.get_absolute_url }}">
+                  <i class="fa fa-user fa-lg me-1"></i>
                   <p class="d-inline text-sm z-index-1 font-weight-bold"
                      data-bs-toggle="tooltip"
                      data-bs-placement="bottom"
@@ -57,9 +59,9 @@
                 </a>
               </li>
               {% else %}
-              <li class="nav-item ms-lg-none">
-                <a class="nav-link nav-link-icon me-2" href="#">
-                  <i class="fa fa-sign-in me-1"></i>
+              <li class="nav-item ms-lg-auto ms-md-0 ms-2 my-1 py-0">
+                <a class="btn btn-sm bg-gradient-success w-auto me-1 my-1" href="{% url 'login' %}">
+                  <i class="fa fa-sign-in fa-lg me-1"></i>
                   <p class="d-inline text-sm z-index-1 font-weight-bold"
                     data-bs-toggle="tooltip"
                     data-bs-placement="bottom" title="Login">
