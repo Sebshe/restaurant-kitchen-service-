@@ -13,7 +13,7 @@
 
 <header class="header-2">
   <div class="page-header min-vh-75 relative py-xl-8"
-       style="background-color: #1f2b3e">
+       style="background-image: url('{% static 'img/back_main.jpg' %}')">
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
@@ -56,11 +56,11 @@
 <section class="pt-3 pb-4" id="count-stats">
   <div class="container">
     <div class="row">
-      <div class="col-lg-9 z-index-2 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
+      <div class="col-lg-9 z-index-2 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur opacity-8">
         <div class="row">
           <div class="col-md-4 position-relative">
             <div class="p-3 text-center">
-              <h1 class="text-gradient text-primary">
+              <h1 class="text-gradient text-success text-stroke">
                 <span id="state1">{{ cooks_count }}</span>+
               </h1>
               <h5 class="mt-3">
@@ -80,7 +80,7 @@
           </div>
           <div class="col-md-4 position-relative">
             <div class="p-3 text-center">
-              <h1 class="text-gradient text-primary">
+              <h1 class="text-gradient text-success text-stroke">
                 <span id="state2">{{ dishes_count }}</span>+
               </h1>
               <h5 class="mt-3">Number of Dishes in the Restaurant Menu</h5>
@@ -96,7 +96,7 @@
           </div>
           <div class="col-md-4">
             <div class="p-3 text-center">
-              <h1 class="text-gradient text-primary" id="state3">
+              <h1 class="text-gradient text-success text-stroke" id="state3">
                 {{ dish_types_count }}
               </h1>
               <h5 class="mt-3">
