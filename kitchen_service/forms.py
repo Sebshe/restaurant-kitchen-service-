@@ -90,7 +90,7 @@ class CookSearchForm(forms.Form):
         label='',
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control mr-sm-2',
+                'class': 'form-control mr-sm-2 mb-3',
                 'type': 'search',
                 'placeholder': 'Search by first name, last name or username',
                 'aria-label': 'Search'

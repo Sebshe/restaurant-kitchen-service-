@@ -16,7 +16,7 @@
 
 <header class="header-2">
   <div class="page-header min-vh-75 relative py-xl-8"
-       style="background-color: #1f2b3e">
+       style="background-image: url('{% static 'img/back_main.jpg' %}')">
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
@@ -29,14 +29,13 @@
             for creating extraordinary dishes. Discover their unique backgrounds, specialties,
             and culinary philosophies as you delve into the world of our restaurant's culinary artisans.
           </p>
-          <form action="" method="get" class="form-inline">
-            {{ search_form|crispy }}
-            <button type="submit"
-                    class="btn btn-secondary">
-              <span id="search-icon" ><i class="fas fa-search"></i>
-                Search
-              </span>
-            </button>
+          <form action="" method="get" class="w-100">
+            <div class="input-group">
+              {{ search_form.search }}
+              <button type="submit" class="btn btn-secondary">
+                <i class="fas fa-search"></i> Search
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -71,10 +70,10 @@
   <div class="container">
 
   {% if cook_list %}
-    <table class="table table-sm table-dark">
-      <thead>
+    <table class="table table-sm table-success">
+      <thead class="table-info">
         <tr>
-          <th class="text-center">ID/Avatar</th>
+          <th class="text-center">Years of experience</th>
           <th class="text-center">First name</th>
           <th class="text-center">Last name</th>
           <th class="text-center">Username</th>
@@ -85,21 +84,16 @@
       {% for cook in cook_list %}
         <tr>
           <th class="text-center">
-            {% if cook.image %}
-              <img class="avatar rounded-circle me-2"
-                   alt="User avatar"
-                   src="{{ MEDIA_URL }}{{ cook.image.url }}">
-            {% else %}
-              <img class="avatar rounded-circle me-2"
-                   alt="Default avatar"
-                   src="{% static 'img/default_avatar.jpg' %}">
+            {% if cook.years_of_experience %}
+              {{ cook.years_of_experience }}
             {% endif %}
           </th>
           <th class="text-center">{{ cook.first_name }}  </th>
           <th class="text-center">{{ cook.last_name }}  </th>
           <th class="text-center">{{ cook.username }}  </th>
           <th class="text-center">
-            <a href="#" class="btn btn-primary w-auto me-1 mb-0">
+            <a href="{% url 'kitchen_service:cook-detail' pk=cook.id %}"
+               class="btn btn-sm bg-gradient-info w-auto me-1 my-1">
               Detail
             </a>
           </th>
