@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load crispy_forms_filters %}
-{% load crispy_forms_tags %}
 {% load static %}
 
 {% block title %}
@@ -91,7 +90,8 @@
           <th class="text-center">{{ dish.price }}  </th>
           <th class="text-center">{{ dish.cooks.count }}  </th>
           <th class="text-center">
-            <a href="{% url 'cafe_kitchen:dish-detail' pk=dish.id %}" class="btn btn-sm bg-gradient-info w-auto me-1 mb-0">
+            <a href="{% url 'kitchen_service:dish-detail' pk=dish.id %}"
+               class="btn btn-sm bg-gradient-info w-auto me-1 mb-0">
               Detail
             </a>
           </th>
