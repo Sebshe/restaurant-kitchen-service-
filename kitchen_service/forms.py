@@ -170,7 +170,7 @@ class DishSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control',
+                'class': 'form-control mr-sm-2 mb-3',
                 "placeholder": "Search by name...",
             }
         )

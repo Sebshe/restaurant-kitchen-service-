@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block title %}
@@ -16,7 +17,7 @@
 
 <header class="header-2">
   <div class="page-header min-vh-75 relative py-xl-8"
-       style="background-color: #1f2b3e">
+       style="background-image: url('{% static 'img/back_main.jpg' %}')">
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
@@ -30,13 +31,11 @@
             each plate tells a story of passion and innovation.
             Join us on a gastronomic adventure and savor the essence of culinary excellence.
           </p>
-          <form action="" method="get" class="form-inline">
+          <form action="" method="get" class="w-100">
             {{ search_form|crispy }}
             <button type="submit" class="btn btn-secondary">
-              <span id="search-icon" >
-                <i class="fas fa-search"></i>
-                Search
-              </span>
+              <i class="fas fa-search"></i>
+              Search
             </button>
           </form>
         </div>
@@ -69,18 +68,17 @@
 
 <section class="pt-3 pb-4">
   <div class="container">
-  <a href="#" class="btn btn-primary w-auto me-1 mb-0">
+  <a href="{% url 'kitchen_service:dish-create' %}" class="btn btn-success w-auto me-1 mb-3">
     + Add dish
   </a>
 
   {% if dish_list %}
-    <table class="table table-sm table-dark">
-      <thead>
+    <table class="table table-sm table-success">
+      <thead class="table-info">
         <tr>
-          <th class="text-center">ID</th>
+          <th class="text-center">Dish type</th>
           <th class="text-center">Name</th>
           <th class="text-center">Price</th>
-          <th class="text-center">Dish type</th>
           <th class="text-center">Number of cooks</th>
           <th class="text-center">Detail</th>
         </tr>
@@ -88,13 +86,12 @@
       <tbody>
       {% for dish in dish_list %}
         <tr>
-          <th class="text-center">{{ dish.id }}  </th>
+          <th class="text-center">{{ dish.dish_type }}  </th>
           <th class="text-center">{{ dish.name }}  </th>
           <th class="text-center">{{ dish.price }}  </th>
-          <th class="text-center">{{ dish.dish_type }}  </th>
           <th class="text-center">{{ dish.cooks.count }}  </th>
           <th class="text-center">
-            <a href="#" class="btn btn-primary w-auto me-1 mb-0">
+            <a href="{% url 'cafe_kitchen:dish-detail' pk=dish.id %}" class="btn btn-sm bg-gradient-info w-auto me-1 mb-0">
               Detail
             </a>
           </th>

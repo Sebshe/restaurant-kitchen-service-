@@ -30,12 +30,11 @@
             and culinary philosophies as you delve into the world of our restaurant's culinary artisans.
           </p>
           <form action="" method="get" class="w-100">
-            <div class="input-group">
-              {{ search_form.search }}
-              <button type="submit" class="btn btn-secondary">
-                <i class="fas fa-search"></i> Search
-              </button>
-            </div>
+            {{ search_form|crispy }}
+            <button type="submit" class="btn btn-secondary">
+              <i class="fas fa-search"></i>
+              Search
+            </button>
           </form>
         </div>
       </div>
