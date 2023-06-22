@@ -39,7 +39,6 @@ class DishTypeForm(forms.ModelForm):
         required=False,
         widget=forms.FileInput(
             attrs={
-                'class': 'custom-file-input',
                 'accept': 'image/*'
             }
         )
@@ -249,11 +248,11 @@ class DishForm(forms.ModelForm):
 
             dish.image = os.path.join("dish", new_image_name)
 
-            if cooks is not None:
-                dish.cooks.set(cooks)
+        if commit:
+            dish.save()
 
-            if commit:
-                dish.save()
+        if cooks is not None:
+            dish.cooks.set(cooks)
 
         return dish
 
