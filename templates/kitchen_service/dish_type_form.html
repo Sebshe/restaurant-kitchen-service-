@@ -3,7 +3,9 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-{% block title %} {{ object|yesno:"Update,Create" }} Type of Dish {% endblock title %}
+{% block title %}
+  <title>{{ object|yesno:"Update,Create" }} Type of Dish</title>
+{% endblock title %}
 {% block body %} class="sign-in-illustration" {% endblock body %}
 
 {% block header %}
@@ -17,14 +19,17 @@
 {% block content %}
 
 <section>
-  <div class="page-header min-vh-100 py-xl-7">
+  <div class="page-header min-vh-100 py-xl-7"
+       style="background-image: url('{% static 'img/dish_type_form_bg.jpg' %}')">
     <div class="container">
       <div class="row">
         <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
           <div class="card card-plain">
             <div class="card-header pb-0 text-left">
-              <h4 class="font-weight-bolder">{{ object|yesno:"Update,Create" }} Type of Dish</h4>
-              <p class="mb-0">Enter data about type of dish</p>
+              <h4 class="font-weight-bolder text-light">
+                {{ object|yesno:"Update,Create" }} Type of Dish
+              </h4>
+              <p class="mb-0 text-light">Enter data about type of dish</p>
             </div>
             <div class="card-body">
               <form action="" method="post" enctype="multipart/form-data" class="form-group">
@@ -52,7 +57,7 @@
                   {{ form.description|as_crispy_field }}
                 </div>
                 <div class="text-center">
-                  <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">
+                  <button type="submit" class="btn btn-lg bg-gradient-success btn-lg w-100 mt-4 mb-0">
                     Save
                   </button>
                 </div>
@@ -62,9 +67,6 @@
         </div>
         <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
           <div class="position-relative h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center">
-            <img src="{% static 'img/dish_type_form_bg.jpg' %}"
-                 alt="dish_type_form_bg"
-                 class="position-absolute start-0">
             <h4 class="mt-5 text-white font-weight-bolder">Conditions</h4>
             <p class="text-white">
               Fill form with optional dish image upload,

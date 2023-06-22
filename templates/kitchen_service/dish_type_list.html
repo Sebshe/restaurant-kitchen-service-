@@ -68,13 +68,13 @@
 <section class="pt-3 pb-4">
   <div class="container">
   <a href="{% url 'kitchen_service:types-of-dish-create' %}"
-     class="btn btn-primary w-auto me-1 mb-3">
+     class="btn btn-success w-auto me-1 mb-3">
     + Add type
   </a>
 
   {% if dishtype_list %}
-    <table class="table table-sm table-dark">
-      <thead>
+    <table class="table table-sm table-success">
+      <thead class="table-info">
         <tr>
           <th class="text-center">ID</th>
           <th class="text-center">Name</th>
