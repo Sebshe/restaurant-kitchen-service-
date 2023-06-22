@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block title %}
@@ -23,25 +24,25 @@
 {% block content %}
 
 <section>
-  <div class="page-header min-vh-100 py-xl-7">
+  <div class="page-header min-vh-100 py-xl-7" style="background-image: url('{% static 'img/dish_type_form_bg.jpg' %}')">
     <div class="container">
       <div class="row">
         <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
           <div class="card card-plain">
             <div class="card-header pb-0 text-left">
-              <h4 class="font-weight-bolder">
+              <h4 class="font-weight-bolder text-light text-stroke">
                 {{ object|yesno:"Update,Create" }} Dish
               </h4>
-              <p class="mb-0">
+              <p class="mb-0 text-light text-larger">
                 Enter data about dish
               </p>
             </div>
-            <div class="card-body">
+            <div class="card-body text-white">
               <form method="post"
                     enctype="multipart/form-data"
                     class="form-group">
                 {% csrf_token %}
-                <div class="form-group">
+                <div class="form-group text-light">
                   <div class="text-center">
                     {% if form.instance.image %}
                       <img src="{{ form.instance.image.url }}"
@@ -53,8 +54,8 @@
                            class="img-fluid mb-2 max-height-300" >
                     {% endif %}
                   </div>
-                  <div class="custom-file mb-3">
-                    {{ form.image}}
+                  <div class="input-group mb-3">
+                    {{ form.image }}
                   </div>
                 </div>
                 <div class="form-group">
@@ -74,7 +75,7 @@
                 </div>
                 <div class="text-center">
                   <button type="submit"
-                          class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">
+                          class="btn btn-lg bg-gradient-success btn-lg w-100 mt-4 mb-0">
                     Save
                   </button>
                 </div>
@@ -83,14 +84,11 @@
           </div>
         </div>
         <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-          <div class="position-relative h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center">
-            <img src="{% static 'img/dish_type_form_bg.jpg' %}"
-                 alt="pattern-lines"
-                 class="position-absolute start-0">
-            <h4 class="mt-5 text-white font-weight-bolder">
+          <div class="position-relative text-dark">
+            <h4 class="mt-5 text-light font-weight-bolder">
               Introduce Your Culinary Masterpiece
             </h4>
-            <p class="text-white">
+            <p class="text-light">
               Unleash your creativity and showcase your culinary prowess with our new dish submission
               Whether it's a unique fusion creation or a traditional classic,
               share the essence of your gastronomic artistry and let your flavors shine.

@@ -2903,9 +2903,9 @@ textarea.form-control-lg {
 }
 
 .form-select:focus {
-  border-color: #e293d3;
+  border-color: #a1e293;
   outline: 0;
-  box-shadow: 0 0 0 2px #e9aede;
+  box-shadow: 0 0 0 2px #aee9c3;
 }
 
 .form-select[multiple],
@@ -5213,7 +5213,6 @@ fieldset:disabled .btn {
   padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
   margin-bottom: 0;
   color: var(--bs-card-cap-color);
-  background-color: var(--bs-card-cap-bg);
   border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
 }
 
@@ -21598,8 +21597,8 @@ fieldset:disabled .btn {
 }
 
 .form-check-label {
-  font-size: 0.875rem;
-  font-weight: 400;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .form-check-input {
@@ -21643,11 +21642,13 @@ fieldset:disabled .btn {
 
 label,
 .form-label {
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #344767;
+  color: #ffffff;
   margin-left: 0.25rem;
+  -webkit-text-stroke: 0.7px black;
+  text-stroke: 0.7px black;
 }
 
 .form-control.is-invalid:focus {

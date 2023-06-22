@@ -192,8 +192,7 @@ class DishForm(forms.ModelForm):
         required=False,
         widget=forms.FileInput(
             attrs={
-                'class': 'custom-file-input',
-                'accept': 'image/*'
+                'accept': 'image/*',
             }
         )
     )
