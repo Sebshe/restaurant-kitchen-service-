@@ -159,6 +159,12 @@ class CookUpdateView(LoginRequiredMixin, UpdateView):
         return HttpResponseRedirect(instance.get_absolute_url())
 
 
+class CookDeleteView(LoginRequiredMixin, DeleteView):
+    model = Cook
+    template_name = 'kitchen_service/cook_confirm_delete.html'
+    success_url = reverse_lazy('login')
+
+
 class DishListView(LoginRequiredMixin, ListView):
     model = Dish
     template_name = 'kitchen_service/dish_list.html'
