@@ -4,7 +4,9 @@
 {% load static %}
 
 {% block title %}
-  <title>{{ object|yesno:"Update,Create" }} Type of Dish</title>
+  <title>
+    {{ object|yesno:"Update,Create" }} Type of Dish
+  </title>
 {% endblock title %}
 {% block body %} class="sign-in-illustration" {% endblock body %}
 
