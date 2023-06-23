@@ -12,50 +12,35 @@ from kitchen_service.models import DishType, Cook, Dish
 
 class DishTypeSearchForm(forms.Form):
     name = forms.CharField(
-        label='',
+        label="",
         max_length=100,
         required=False,
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control',
+                "class": "form-control",
                 "placeholder": "Search by name...",
             }
-        )
+        ),
     )
 
 
 class DishTypeForm(forms.ModelForm):
     name = forms.CharField(
-        label='Title',
+        label="Title",
         required=True,
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Enter name here...'
-            }
-        )
+        widget=forms.TextInput(attrs={"placeholder": "Enter name here..."}),
     )
 
     image = forms.ImageField(
-        required=False,
-        widget=forms.FileInput(
-            attrs={
-                'accept': 'image/*'
-            }
-        )
+        required=False, widget=forms.FileInput(attrs={"accept": "image/*"})
     )
 
     class Meta:
         model = DishType
-        fields = [
-            'image',
-            'name',
-            'description'
-        ]
+        fields = ["image", "name", "description"]
 
     def save(self, commit=True):
-        dish_type = super(
-            DishTypeForm, self
-        ).save(commit=False)
+        dish_type = super(DishTypeForm, self).save(commit=False)
 
         if self.cleaned_data["image"]:
             image = self.cleaned_data["image"]
@@ -63,19 +48,14 @@ class DishTypeForm(forms.ModelForm):
 
             new_image_name = f"{dish_type.name}{file_ext}"
             file_path = os.path.join(
-                settings.MEDIA_ROOT,
-                "types_of_dish",
-                new_image_name
+                settings.MEDIA_ROOT, "types_of_dish", new_image_name
             )
 
-            with open(file_path, 'wb') as new_image_file:
+            with open(file_path, "wb") as new_image_file:
                 for chunk in image.chunks():
                     new_image_file.write(chunk)
 
-            dish_type.image = os.path.join(
-                "types_of_dish",
-                new_image_name
-            )
+            dish_type.image = os.path.join("types_of_dish", new_image_name)
 
         if commit:
             dish_type.save()
@@ -86,61 +66,52 @@ class DishTypeForm(forms.ModelForm):
 class CookSearchForm(forms.Form):
     search = forms.CharField(
         required=False,
-        label='',
+        label="",
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control mr-sm-2 mb-3',
-                'type': 'search',
-                'placeholder': 'Search by first name, last name or username',
-                'aria-label': 'Search'
+                "class": "form-control mr-sm-2 mb-3",
+                "type": "search",
+                "placeholder": "Search by first name, last name or username",
+                "aria-label": "Search",
             }
-        )
+        ),
     )
 
     def search_cooks(self):
-        query = self.cleaned_data.get('search')
+        query = self.cleaned_data.get("search")
         cooks = Cook.objects.filter(
-            Q(first_name__icontains=query) |
-            Q(last_name__icontains=query) |
-            Q(username__icontains=query)
+            Q(first_name__icontains=query)
+            | Q(last_name__icontains=query)
+            | Q(username__icontains=query)
         )
         return cooks
 
 
 class CookUpdateForm(forms.ModelForm):
     image = forms.ImageField(
-        required=False,
-        widget=forms.FileInput(
-            attrs={
-                'accept': 'image/*'
-            }
-        )
+        required=False, widget=forms.FileInput(attrs={"accept": "image/*"})
     )
 
-    email = forms.EmailField(
-        required=True
-    )
+    email = forms.EmailField(required=True)
 
     class Meta:
         model = Cook
         fields = [
-            'image',
-            'first_name',
-            'last_name',
-            'email',
-            'bio',
-            'years_of_experience',
+            "image",
+            "first_name",
+            "last_name",
+            "email",
+            "bio",
+            "years_of_experience",
         ]
         labels = {
-            'years_of_experience': 'Years of Experience',
-            'first_name': 'First Name',
-            'last_name': "Last Name"
+            "years_of_experience": "Years of Experience",
+            "first_name": "First Name",
+            "last_name": "Last Name",
         }
 
     def save(self, commit=True):
-        cook = super(
-            CookUpdateForm, self
-        ).save(commit=False)
+        cook = super(CookUpdateForm, self).save(commit=False)
 
         if self.cleaned_data["image"]:
             image = self.cleaned_data["image"]
@@ -149,7 +120,7 @@ class CookUpdateForm(forms.ModelForm):
             new_image_name = f"{username}{file_ext}"
             file_path = os.path.join(settings.MEDIA_ROOT, "avatar", new_image_name)
 
-            with open(file_path, 'wb') as new_image_file:
+            with open(file_path, "wb") as new_image_file:
                 for chunk in image.chunks():
                     new_image_file.write(chunk)
 
@@ -163,76 +134,55 @@ class CookUpdateForm(forms.ModelForm):
 
 class DishSearchForm(forms.Form):
     name = forms.CharField(
-        label='',
+        label="",
         max_length=100,
         required=False,
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control mr-sm-2 mb-3',
+                "class": "form-control mr-sm-2 mb-3",
                 "placeholder": "Search by name...",
             }
-        )
+        ),
     )
 
 
 class DishForm(forms.ModelForm):
     name = forms.CharField(
-        label='Title',
+        label="Title",
         required=True,
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Enter name here...'
-            }
-        )
+        widget=forms.TextInput(attrs={"placeholder": "Enter name here..."}),
     )
 
     image = forms.ImageField(
         required=False,
         widget=forms.FileInput(
             attrs={
-                'accept': 'image/*',
+                "accept": "image/*",
             }
-        )
+        ),
     )
 
     cooks = forms.ModelMultipleChoiceField(
         queryset=get_user_model().objects.all(),
         widget=forms.CheckboxSelectMultiple,
-        required=False
+        required=False,
     )
 
-    price = forms.DecimalField(
-        required=True,
-        max_digits=10,
-        decimal_places=2
-    )
+    price = forms.DecimalField(required=True, max_digits=10, decimal_places=2)
 
     dish_type = forms.ModelChoiceField(
         queryset=DishType.objects.all(),
         required=True,
-        widget=forms.Select(
-            attrs={
-                'class': 'form-select'
-            }
-        )
+        widget=forms.Select(attrs={"class": "form-select"}),
     )
 
     class Meta:
         model = Dish
-        fields = [
-            'image',
-            'name',
-            'price',
-            'description',
-            'dish_type',
-            'cooks'
-        ]
+        fields = ["image", "name", "price", "description", "dish_type", "cooks"]
 
     def save(self, commit=True):
-        dish = super(
-            DishForm, self
-        ).save(commit=False)
-        cooks = self.cleaned_data.get('cooks', None)
+        dish = super(DishForm, self).save(commit=False)
+        cooks = self.cleaned_data.get("cooks", None)
 
         if self.cleaned_data["image"]:
             image = self.cleaned_data["image"]
@@ -241,7 +191,7 @@ class DishForm(forms.ModelForm):
             new_image_name = f"{dish.name}{file_ext}"
             file_path = os.path.join(settings.MEDIA_ROOT, "dish", new_image_name)
 
-            with open(file_path, 'wb') as new_image_file:
+            with open(file_path, "wb") as new_image_file:
                 for chunk in image.chunks():
                     new_image_file.write(chunk)
 
@@ -259,30 +209,35 @@ class DishForm(forms.ModelForm):
 class RegistrationForm(UserCreationForm):
     password1 = forms.CharField(
         label=_("Password"),
-        widget=forms.PasswordInput(attrs={
-            'class': 'form-control form-control-lg',
-            'placeholder': 'Password'
-        }),
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control form-control-lg", "placeholder": "Password"}
+        ),
     )
     password2 = forms.CharField(
         label=_("Password Confirmation"),
-        widget=forms.PasswordInput(attrs={
-            'class': 'form-control form-control-lg',
-            'placeholder': 'Password Confirmation'
-        }),
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control form-control-lg",
+                "placeholder": "Password Confirmation",
+            }
+        ),
     )
 
     class Meta:
         model = Cook
-        fields = ('username', 'email', )
+        fields = (
+            "username",
+            "email",
+        )
 
         widgets = {
-            'username': forms.TextInput(attrs={
-                'class': 'form-control form-control-lg',
-                'placeholder': 'Username'
-            }),
-            'email': forms.EmailInput(attrs={
-                'class': 'form-control form-control-lg',
-                'placeholder': 'Email'
-            })
+            "username": forms.TextInput(
+                attrs={
+                    "class": "form-control form-control-lg",
+                    "placeholder": "Username",
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={"class": "form-control form-control-lg", "placeholder": "Email"}
+            ),
         }
