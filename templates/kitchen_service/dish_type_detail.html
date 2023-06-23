@@ -24,7 +24,7 @@
       <div class="row">
         <div class="col-12 mx-auto">
           <div class="row py-lg-7 py-5">
-            <div class="col-lg-3 col-md-5 position-relative my-auto">
+            <div class="col-lg-3 col-md-5 position-relative mb-5">
               <img class="img border-radius-lg max-width-300 w-100 position-relative z-index-2"
                    src="{{ object.image.url }}"
                    alt="{{ dishtype.name }}">
@@ -35,27 +35,26 @@
                   {{ dishtype.name}}
                 </h4>
                 <div class="d-block">
-                  <a href="#"
-                     class="btn btn-outline-info text-nowrap mb-0">
+                  <a href="{% url 'kitchen_service:type-of-dish-update' pk=dishtype.id %}"
+                     class="btn btn-outline-info text-nowrap mb-1">
                     Change
                   </a>
-                  <a href="#"
-                     class="btn btn-danger text-nowrap mb-0">
+                  <a href="{% url 'kitchen_service:type-of-dish-delete' pk=dishtype.id %}"
+                     class="btn btn-danger text-nowrap mb-1">
                     Delete
                   </a>
                 </div>
               </div>
-              <p class="text-lg mb-0">
+              <p class="text-lg mb-5">
                 {{ dishtype.description }}
               </p>
             </div>
 
             <div class="container">
               {% if dishtype.dishes.all %}
-                <table class="table table-sm table-dark">
-                  <thead>
+                <table class="table table-sm table-success">
+                  <thead class="table-info">
                     <tr>
-                      <th class="text-center">ID</th>
                       <th class="text-center">Name</th>
                       <th class="text-center">Detail</th>
                     </tr>
@@ -63,10 +62,10 @@
                   <tbody>
                   {% for dish in dishtype.dishes.all %}
                     <tr>
-                      <th class="text-center">{{ dish.id }}  </th>
                       <th class="text-center">{{ dish.name }}  </th>
                       <th class="text-center">
-                        <a href="#" class="btn btn-primary w-auto me-1 mb-0">
+                        <a href="{% url 'kitchen_service:dish-detail' pk=dish.id %}"
+                           class="btn btn-sm bg-gradient-info w-auto me-1 mb-0">
                           Detail
                         </a>
                       </th>
