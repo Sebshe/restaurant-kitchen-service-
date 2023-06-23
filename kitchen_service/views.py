@@ -43,6 +43,7 @@ class MainView(TemplateView):
 class DishTypeListView(LoginRequiredMixin, ListView):
     model = DishType
     template_name = 'kitchen_service/dish_type_list.html'
+    paginate_by = 5
 
     def get_context_data(
             self,
@@ -100,6 +101,7 @@ class DishTypeDeleteView(LoginRequiredMixin, DeleteView):
 class CookListView(LoginRequiredMixin, ListView):
     model = Cook
     template_name = 'kitchen_service/cook_list.html'
+    paginate_by = 5
 
     def get_queryset(self):
         query = self.request.GET.get('search')
@@ -168,6 +170,7 @@ class CookDeleteView(LoginRequiredMixin, DeleteView):
 class DishListView(LoginRequiredMixin, ListView):
     model = Dish
     template_name = 'kitchen_service/dish_list.html'
+    paginate_by = 5
 
     def get_context_data(
             self,
@@ -223,4 +226,4 @@ class DishDetailView(LoginRequiredMixin, DetailView):
 class DishDeleteView(LoginRequiredMixin, DeleteView):
     model = Dish
     template_name = 'kitchen_service/dish_confirm_delete.html'
-    success_url = reverse_lazy('cafe_kitchen:dishes')
+    success_url = reverse_lazy('kitchen_service:dishes')
