@@ -39,11 +39,11 @@
                     {% if form.instance.image %}
                       <img src="{{ form.instance.image.url }}"
                            alt="Current Image"
-                           class="img-fluid mb-2 max-height-300">
+                           class="img-fluid mb-2 max-height-300 img-thumbnail">
                     {% else %}
                       <img src="{% static 'img/default_photo.jpg' %}"
                            alt="No Image"
-                           class="img-fluid mb-2 max-height-300" >
+                           class="img-fluid mb-2 max-height-300 img-thumbnail" >
                     {% endif %}
                   </div>
                   <div class="custom-file mb-3">
