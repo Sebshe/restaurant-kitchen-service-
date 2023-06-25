@@ -3,7 +3,7 @@
 This is a Django project that aims to manage the interaction between cooks and the creation of dishes in a restaurant.
 
 ## Check it out!
-[Piter's restaurant project deployed to Heroku](past_link)
+[Piter's restaurant project deployed to Heroku](https://piters-restaurant.onrender.com/)
 
 ## Installing / Getting started
 
