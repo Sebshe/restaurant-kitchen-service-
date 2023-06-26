@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+  <title>
+    Update cook
+  </title>
+{% endblock title %}
+{% block body %}
+  class="sign-in-illustration"
+{% endblock body %}
+
+{% block header %}
+
+{% with cook=request.user %}
+  {% include 'includes/navigation.html' %}
+{% endwith %}
+
+{% endblock header %}
+
+{% block content %}
+
+<section>
+  <div class="page-header min-vh-100 py-xl-7" style="background-image: url('{% static 'img/Cooks_form.jpg' %}')">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+          <div class="card card-plain text-light">
+            <div class="card-header pb-0 text-left">
+              <h4 class="font-weight-bolder text-light">
+                Update info
+              </h4>
+              <p class="mb-0 text-light">
+                Enter data about
+              </p>
+            </div>
+            <div class="card-body">
+              <form method="post"
+                    enctype="multipart/form-data"
+                    class="form-group">
+                {% csrf_token %}
+                <div class="form-group">
+                  <div class="text-center">
+                    {% if form.instance.image %}
+                      <img src="{{ form.instance.image.url }}"
+                           alt="Current Image"
+                           class="img-fluid mb-2 max-height-300 img-thumbnail">
+                    {% else %}
+                      <img src="{% static 'img/default_avatar.jpg' %}"
+                           alt="No Image"
+                           class="img-fluid mb-2 max-height-300 img-thumbnail">
+                    {% endif %}
+                  </div>
+                  <div class="custom-file mb-3">
+                    {{ form.image }}
+                  </div>
+                </div>
+                <div class="form-group">
+                  {{ form.first_name|as_crispy_field }}
+                </div>
+                <div class="form-group">
+                  {{ form.last_name|as_crispy_field }}
+                </div>
+                <div class="form-group">
+                  {{ form.email|as_crispy_field }}
+                </div>
+                <div class="form-group">
+                  {{ form.bio|as_crispy_field }}
+                </div>
+                <div class="form-group">
+                  {{ form.years_of_experience|as_crispy_field }}
+                </div>
+                <div class="text-center">
+                  <button type="submit"
+                          class="btn btn-lg bg-gradient-success w-100 mt-4 mb-1">
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="col-xl-12 px-4">
+              <a href="{% url 'kitchen_service:cook-delete' pk=cook.id %}" class="btn btn-lg bg-gradient-danger w-100 mt-4 mb-2">
+                Delete account
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+          <div class="position-relative h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center">
+            <div class="position-relative text-dark">
+              <h3 class="mt-5 font-weight-bolder text-light text-stroke">
+                Unleash Your Culinary Journey
+              </h3>
+              <p class="text-larger font-weight-bolder text-light  text-stroke">
+                Complete our form and let your story unfold, inspiring aspiring chefs and food enthusiasts worldwide.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

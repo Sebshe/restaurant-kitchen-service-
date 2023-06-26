@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Home|Piter's restaurant</title>
+{% endblock title %}
+
+{% block body %}
+  class="index-page bg-gray-200"
+{% endblock body %}
+
+{% block content %}
+
+<header class="header-2">
+  <div class="page-header min-vh-75 relative py-xl-8"
+       style="background-image: url('{% static 'img/back_main.jpg' %}')">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 text-center mx-auto">
+          <h1 class="text-white pt-3 mt-n5">
+            Piter's restaurant
+          </h1>
+          <p class="lead text-white mt-3">
+            Piter's Restaurant is a culinary haven that promises
+            an unforgettable dining experience.
+            <br/>
+            Introducing our management system,
+            where cooks have the ability to create new dishes and dish types,
+            as well as assign specific cooks to be responsible for the preparation of each dish.
+            This streamlined system empowers our culinary team,
+            ensuring efficient coordination and accountability in the kitchen.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="position-absolute w-100 z-index-1 bottom-0">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="moving-waves">
+          <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40" />
+          <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
+          <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
+          <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
+          <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
+          <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,0.95" />
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+
+<section class="pt-3 pb-4" id="count-stats">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 z-index-2 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur opacity-8">
+        <div class="row">
+          <div class="col-md-4 position-relative">
+            <div class="p-3 text-center">
+              <h1 class="text-gradient text-success text-stroke">
+                <span id="state1" countTo="{{ cooks_count }}">0</span>+
+              </h1>
+              <h5 class="mt-3">
+                Number of Chefs in the Restaurant
+              </h5>
+              <p class="text-sm">
+                Piter's restaurant is home to exceptional chefs
+                who bring unparalleled skill and passion to every dish they create.
+                Our team of talented professionals carefully selected for their
+                experience and creativity, master various cooking techniques,
+                innovative approaches, and culinary trends to satisfy the most
+                discerning palates of our guests, resulting in exquisite and
+                delightful dining experiences.
+              </p>
+            </div>
+            <hr class="vertical dark">
+          </div>
+          <div class="col-md-4 position-relative">
+            <div class="p-3 text-center">
+              <h1 class="text-gradient text-success text-stroke">
+                <span id="state2" countTo="{{ dishes_count }}">0</span>+
+              </h1>
+              <h5 class="mt-3">Number of Dishes in the Restaurant Menu</h5>
+              <p class="text-sm">
+                At Piter's Restaurant, our menu boasts an array of mouthwatering
+                dishes, skillfully prepared to indulge the taste receptors of our
+                esteemed guests. From appetizers to main courses and desserts,
+                our culinary offerings present a diverse selection of flavors
+                that are sure to satisfy even the most discerning palates.
+              </p>
+            </div>
+            <hr class="vertical dark">
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 text-center">
+              <h1 class="text-gradient text-success text-stroke" id="state3" countTo="{{ dish_types_count }}">
+                0
+              </h1>
+              <h5 class="mt-3">
+                Number of Dish Types in the Restaurant
+              </h5>
+              <p class="text-sm">
+                The block provides a comprehensive overview of the variety
+                of dish types available in the restaurant.
+                It allows for easy tracking and management of the diverse culinary offerings,
+                ensuring a well-rounded and enticing menu for our valued guests.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+{% block javascripts %}
+  <script src="{% static 'js/plugins/countup.min.js' %}"></script>
+  <script type="text/javascript">
+
+    if (document.getElementById('state1')) {
+      const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
+      if (!countUp.error) {
+        countUp.start();
+      } else {
+        console.error(countUp.error);
+      }
+    }
+    if (document.getElementById('state2')) {
+      const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
+      if (!countUp1.error) {
+        countUp1.start();
+      } else {
+        console.error(countUp1.error);
+      }
+    }
+    if (document.getElementById('state3')) {
+      const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
+      if (!countUp2.error) {
+        countUp2.start();
+      } else {
+        console.error(countUp2.error);
+      };
+    }
+  </script>
+
+  {% endblock javascripts %}
