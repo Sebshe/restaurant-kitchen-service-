@@ -6,6 +6,13 @@ This is a Django project that aims to manage the interaction between cooks and t
 
 [Piter's restaurant project deployed to Render](https://piters-restaurant.onrender.com/)
 
+## For testing
+You can use a ready-made account or create a new one
+
+```shell
+login: user
+password: user12345
+```
 
 ## Installing / Getting started
 
